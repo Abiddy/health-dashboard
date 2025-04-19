@@ -35,37 +35,38 @@ export default function NavBar() {
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200">
-      <div className=" mx-auto px-4 sm:px-6 lg:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="flex items-center">
-               Rovr
+              <Link href="/" className="text-xl font-bold text-gray-900">
+                Rovr
               </Link>
             </div>
             
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link 
-                href="/"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Home
-              </Link>
-              
-              <Link 
-                href="/services"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Services
-              </Link>
-
-              <Link 
-                href="/my-services"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                My Services
-              </Link>
-            </div>
+            {/* Only show navigation links when user is logged in */}
+            {user && (
+              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <Link
+                  href="/"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/services"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/my-services"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  My Services
+                </Link>
+              </div>
+            )}
           </div>
           
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -139,24 +140,29 @@ export default function NavBar() {
       {isMenuOpen && (
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
-            <Link
-              href="/"
-              className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800"
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800"
-            >
-              Services
-            </Link>
-            <Link
-              href="/my-services"
-              className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800"
-            >
-              My Services
-            </Link>
+            {/* Only show navigation links on mobile when user is logged in */}
+            {user ? (
+              <>
+                <Link
+                  href="/"
+                  className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/services"
+                  className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/my-services"
+                  className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                >
+                  My Services
+                </Link>
+              </>
+            ) : null}
           </div>
           
           {user ? (
