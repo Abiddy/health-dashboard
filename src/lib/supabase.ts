@@ -10,13 +10,26 @@ export const createServerClient = () => {
   return createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: false
+    },
+    global: {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
     }
   })
 }
 
 // Create a client for use in the browser
 export const createBrowserSupabaseClient = () => 
-  createBrowserClient(supabaseUrl, supabaseAnonKey)
+  createBrowserClient(supabaseUrl, supabaseAnonKey, {
+    global: {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }
+  })
 
 // Type for a selected service
 export type SelectedService = {
