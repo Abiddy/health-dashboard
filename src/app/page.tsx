@@ -218,7 +218,7 @@ export default function Home() {
           <DoctorAppointmentCard 
             doctorName={patientInfo?.doctor_name || "Dr. Aarav Lingmoor, MD"}
             doctorAvatar={patientInfo?.doctor_avatar || "/doctor.png"}
-            serviceId={3}
+            serviceId={'263812af-97e6-49c1-ab43-d17f046d480d'}
           />
         </div>
       </div>
@@ -229,7 +229,7 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl font-light text-white">Services</h2>
           <Link href="/services">
             <Button variant="ghost" className="text-white hover:text-white hover:bg-black/30">
-              View my services
+              View all services
             </Button>
           </Link>
         </div>
