@@ -93,9 +93,10 @@ export default function ServiceSelectionForm({ serviceId, availableDates }: Serv
       const responseData = await response.json();
       console.log("Success response:", responseData);
       setSuccess(true);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error details:', err);
-      setError(err.message || 'An unexpected error occurred');
+      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -122,7 +123,7 @@ export default function ServiceSelectionForm({ serviceId, availableDates }: Serv
   if (success) {
     return (
       <div className="bg-green-900/30 text-green-400 p-4 rounded-lg text-center">
-        Service successfully selected! We'll be in touch shortly regarding your appointment.
+        Service successfully selected! We will be in touch shortly regarding your appointment.
       </div>
     );
   }

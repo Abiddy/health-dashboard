@@ -1,37 +1,93 @@
-import { createServerClient } from '@/lib/supabase'
-import { notFound } from 'next/navigation'
+'use client';
+
+import { useState, useEffect } from 'react'
+import { notFound, useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Calendar } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import ServiceSelectionForm from './ServiceSelectionForm'
+import { createBrowserSupabaseClient } from '@/lib/supabase'
 
-export default async function ServicePage({ params }: { params: { id: string } }) {
-  const { id } = params
+export default function ServicePage() {
+  const params = useParams();
+  const id = params.id as string;
   
-  // Fetch service directly from the database
-  const supabase = createServerClient()
-  const { data: service, error } = await supabase
-    .from('services')
-    .select('*')
-    .eq('id', id)
-    .single()
-  
-  if (error || !service) {
-    console.error('Error fetching service:', error)
-    notFound() // This triggers the 404 page
-  }
+  const [service, setService] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   
   // Mock data for available dates and times (in a real app, this could come from another table)
   const availableDates = [
     { date: "Tomorrow", slots: ["9:00 AM", "11:30 AM", "2:00 PM"] },
     { date: "Wednesday", slots: ["10:00 AM", "1:30 PM", "4:00 PM"] },
     { date: "Thursday", slots: ["9:30 AM", "12:00 PM", "3:30 PM"] }
-  ]
+  ];
   
   // Mock price and duration (in a real app, these could be fields in your services table)
-  const price = "$150"
-  const duration = "60 min"
+  const price = "$150";
+  const duration = "60 min";
+  
+  useEffect(() => {
+    async function fetchService() {
+      setIsLoading(true);
+      try {
+        const supabase = createBrowserSupabaseClient();
+        const { data, error } = await supabase
+          .from('services')
+          .select('*')
+          .eq('id', id)
+          .single();
+        
+        if (error) {
+          throw error;
+        }
+        
+        if (!data) {
+          notFound();
+        }
+        
+        setService(data);
+      } catch (err) {
+        console.error('Error fetching service:', err);
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    fetchService();
+  }, [id]);
+  
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#111111] text-white p-4 sm:p-6 md:p-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-center h-[400px]">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Show error state
+  if (error || !service) {
+    return (
+      <div className="min-h-screen bg-[#111111] text-white p-4 sm:p-6 md:p-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-red-900/30 text-red-400 p-6 rounded-lg text-center">
+            <h2 className="text-xl font-medium mb-2">Error Loading Service</h2>
+            <p>The requested service could not be found.</p>
+            <Link href="/services" className="inline-block mt-4 text-white hover:text-white underline">
+              Return to services
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen bg-[#111111] text-white p-4 sm:p-6 md:p-8">
@@ -85,12 +141,11 @@ export default async function ServicePage({ params }: { params: { id: string } }
                 Select this service to add it to your account. Choose a date and time for your appointment.
               </p>
               
-              {/* This component is also a client component with date selection, time selection, and form submission */}
               <ServiceSelectionForm serviceId={service.id} availableDates={availableDates} />
             </div>
           </div>
         </Card>
       </div>
     </div>
-  )
+  );
 } 

@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { ServiceCard } from "@/components/ui/service-card"
@@ -252,7 +251,7 @@ export default function Home() {
           ) : (
             <div className="col-span-full flex flex-col items-center justify-center p-8 bg-black/20 rounded-lg">
               <p className="text-gray-400 mb-2">No services available</p>
-              <p className="text-sm text-gray-500">Services will appear here once they're added.</p>
+              <p className="text-sm text-gray-500">Services will appear here once they are added.</p>
             </div>
           )}
         </div>

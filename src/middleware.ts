@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server';
 const publicRoutes = ['/auth/login', '/auth/register', '/auth/reset-password'];
 
 export async function middleware(req: NextRequest) {
-  let res = NextResponse.next();
+  const res = NextResponse.next();
   
   // Create a Supabase client for the middleware
   const supabase = createServerClient(

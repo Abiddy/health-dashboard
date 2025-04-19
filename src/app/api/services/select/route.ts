@@ -113,10 +113,11 @@ export async function POST(request: Request) {
       data: userService
     });
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Unexpected error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json(
-      { error: `An unexpected error occurred: ${error.message}` }, 
+      { error: `An unexpected error occurred: ${errorMessage}` }, 
       { status: 500 }
     );
   }
