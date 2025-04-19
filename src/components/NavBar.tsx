@@ -14,8 +14,6 @@ export default function NavBar() {
     try {
       await signOut();
       setIsDropdownOpen(false);
-      // Redirect to sign-up page after successful sign out
-      window.location.href = '/auth/login';
     } catch (error) {
       console.error('Error signing out:', error);
     }

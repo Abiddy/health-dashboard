@@ -74,8 +74,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Error during sign out:', error);
+      }
+    } catch (error) {
+      console.error('Exception during sign out:', error);
+    } finally {
+      // Always redirect to login page regardless of errors
+      // This ensures user is logged out of the client-side even if session is invalid
+      window.location.href = '/auth/login';
+    }
   };
 
   const value = {
