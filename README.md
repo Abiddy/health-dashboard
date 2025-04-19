@@ -1,22 +1,47 @@
 # Health Dashboard
 
-A patient-facing health dashboard built with Next.js and Chakra UI.
+A patient-facing health dashboard built with Next.js, Typescript, Supabase Database and Tailwind CSS.
+
+# Live Demo Link: https://health-dashboard-six.vercel.app/
 
 ## Features
 
-- View health biomarker summary
-- Compare biological age with chronological age
-- View assigned doctor information
-- Browse and select health services
-- Schedule appointments
-- Dark mode support
+- Componentised files added
+- Typescript interfaces and types included
+- User data and authentication implemented using Supabase
+- Use of Server components implemented (In the services page)
+- Next JS get and post APIs used.
+- TailwindCSS and Shadcn implemented for clean and concise UI. 
 
 ## Tech Stack
 
 - Next.js 14 (App Router)
 - TypeScript
-- Chakra UI
+- Tailwind CSS
 - Supabase (for data storage)
+
+# API CALLS
+- GET NextJs API to get `patient data` and display on Home Page
+- GET NextJs API to get `services` and display on Services Page
+- POST selected_services to the `user_services` table in DB
+- GET Next JS API to get `my_services` on /my_services page
+
+# PAGES
+
+### Home Page
+- Biomarker summary with total, in-range, and out-of-range counts
+- Age comparison visualization
+- Doctor information display
+
+### Services Page
+- Grid layout of available health services
+- Service cards with key information
+- Detailed service view with appointment scheduling
+
+### My Services
+- View and manage selected health services
+- Track appointment dates and service status
+
 
 ## Getting Started
 
@@ -48,50 +73,33 @@ npm run dev
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── (auth)/
-│   ├── (dashboard)/
-│   │   ├── page.tsx
-│   │   └── services/
-│   │       ├── page.tsx
-│   │       └── [id]/
-│   │           └── page.tsx
-│   └── layout.tsx
-├── components/
-│   ├── layout/
-│   │   ├── Header.tsx
-│   │   └── MainLayout.tsx
-│   ├── dashboard/
-│   │   ├── BiomarkerSummary.tsx
-│   │   ├── AgeComparison.tsx
-│   │   └── DoctorInfo.tsx
-│   └── services/
-│       └── ServiceCard.tsx
-└── lib/
-    └── supabase.ts
+/src
+├── app/                      # Next.js App Router structure
+│   ├── api/                  # API routes
+│   │   ├── patient/          # Patient data API endpoint
+│   │   └── services/         # Services API endpoints
+│   ├── auth/                 # Authentication pages
+│   │   ├── login/            # Login page
+│   │   └── register/         # Registration page
+│   ├── my-services/          # My Services page
+│   ├── services/             # Services list page
+│   │   └── [id]/             # Service detail page
+│   ├── auth-provider.tsx     # Authentication context provider
+│   ├── layout.tsx            # Root layout
+│   └── page.tsx              # Home page
+├── components/               # Reusable components
+│   ├── dashboard/            # Dashboard-specific components
+│   │   ├── BiomarkersCard.tsx
+│   │   ├── BiologicalAgeCard.tsx
+│   │   ├── DoctorInfoCard.tsx
+│   │   └── DoctorAppointmentCard.tsx
+│   ├── ui/                   # UI components
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── service-card.tsx
+│   │   └── skeleton.tsx
+│   └── NavBar.tsx            # Navigation bar component
+└── lib/                      # Utility libraries
+    └── supabase.ts           # Supabase client configuration
 ```
 
-## Features Implementation
-
-### Home Page
-- Biomarker summary with total, in-range, and out-of-range counts
-- Age comparison visualization
-- Doctor information display
-
-### Services Page
-- Grid layout of available health services
-- Service cards with key information
-- Detailed service view with appointment scheduling
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
