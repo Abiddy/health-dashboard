@@ -6,7 +6,7 @@ import { useAuth } from '@/app/auth-provider';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Calendar, ArrowRight, Clock } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 import { createBrowserSupabaseClient } from '@/lib/supabase';
 
 interface UserService {
@@ -63,7 +63,13 @@ export default function MyServicesPage() {
           throw error;
         }
         
-        setServices(data as UserService[]);
+        // Transform the data to match the UserService interface
+        const transformedData = data?.map(item => ({
+          ...item,
+          service: Array.isArray(item.service) ? item.service[0] : item.service
+        })) || [];
+        
+        setServices(transformedData as UserService[]);
       } catch (err) {
         console.error('Error fetching services:', err);
         setError('Failed to load your services. Please try again.');
@@ -139,7 +145,7 @@ export default function MyServicesPage() {
         {services.length === 0 ? (
           <div className="bg-black/20 p-8 rounded-lg text-center">
             <h2 className="text-xl font-medium mb-4">No services selected yet</h2>
-            <p className="text-gray-400 mb-6">Browse our services and select the ones you're interested in.</p>
+            <p className="text-gray-400 mb-6">Browse our services and select the ones you are interested in.</p>
             <Button asChild>
               <Link href="/services">Browse Services</Link>
             </Button>
