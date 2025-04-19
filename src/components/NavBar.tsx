@@ -14,6 +14,8 @@ export default function NavBar() {
     try {
       await signOut();
       setIsDropdownOpen(false);
+      // Redirect to sign-up page after successful sign out
+      window.location.href = '/auth/login';
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -89,7 +91,7 @@ export default function NavBar() {
                     </div>
                     <button
                       onClick={handleSignOut}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                     >
                       Sign out
                     </button>
@@ -176,7 +178,7 @@ export default function NavBar() {
               <div className="mt-3 space-y-1">
                 <button
                   type="button"
-                  className="block w-full text-left px-4 py-2 text-base font-medium text-black bg-white border border-black hover:text-gray-800 hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-3 text-base font-medium text-black bg-white border border-black hover:text-gray-800 hover:bg-gray-100 cursor-pointer"
                   onClick={handleSignOut}
                 >
                   Sign out
