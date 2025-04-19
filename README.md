@@ -20,13 +20,12 @@ A patient-facing health dashboard built with Next.js, Typescript, Supabase Datab
 - Tailwind CSS
 - Supabase (for data storage)
 
-# API CALLS
+### API CALLS
 - GET NextJs API to get `patient data` and display on Home Page
 - GET NextJs API to get `services` and display on Services Page
 - POST selected_services to the `user_services` table in DB
 - GET Next JS API to get `my_services` on /my_services page
 
-# PAGES
 
 ### Home Page
 - Biomarker summary with total, in-range, and out-of-range counts
